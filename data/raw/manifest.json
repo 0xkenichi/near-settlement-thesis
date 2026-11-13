@@ -1,0 +1,27 @@
+{
+  "chain": {
+    "url": "https://api.nearblocks.io/v1/charts",
+    "fetchedAt": "2026-11-13T08:57:47.415Z",
+    "bytes": 1544022
+  },
+  "intentsVolume": {
+    "url": "https://api.llama.fi/summary/dexs/near-intents?excludeTotalDataChartBreakdown=true",
+    "fetchedAt": "2026-11-13T08:57:48.528Z",
+    "bytes": 17176
+  },
+  "intentsFees": {
+    "url": "https://api.llama.fi/summary/fees/near-intents?dataType=dailyFees&excludeTotalDataChartBreakdown=true",
+    "fetchedAt": "2026-11-13T08:57:49.445Z",
+    "bytes": 14192
+  },
+  "intentsRevenue": {
+    "url": "https://api.llama.fi/summary/fees/near-intents?dataType=dailyRevenue&excludeTotalDataChartBreakdown=true",
+    "fetchedAt": "2026-11-13T08:57:50.345Z",
+    "bytes": 12973
+  },
+  "intentsBuyback": {
+    "url": "https://api.llama.fi/summary/fees/near-intents?dataType=dailyHoldersRevenue&excludeTotalDataChartBreakdown=true",
+    "fetchedAt": "2026-11-13T08:57:50.745Z",
+    "bytes": 12887
+  }
+}

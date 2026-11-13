@@ -1,0 +1,20 @@
+{
+  "name": "near-settlement-thesis",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An evidence-first investment thesis for NEAR, with a live dashboard and one command that rebuilds every number and chart.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "rebuild": "node rebuild.mjs",
+    "build:site": "node hosting/gen-web4.mjs && near-sdk-js build hosting/site.ts build/site.wasm",
+    "deploy:site": "node hosting/deploy-testnet.mjs"
+  },
+  "devDependencies": {
+    "near-api-js": "5.1.1",
+    "near-sdk-js": "2.0.0"
+  },
+  "overrides": {
+    "@types/node": "16.18.126"
+  }
+}

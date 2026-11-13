@@ -1,0 +1,5 @@
+node_modules/
+build/
+.near-credentials/
+hosting/web4-files.ts
+.DS_Store

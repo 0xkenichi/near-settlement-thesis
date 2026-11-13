@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEAR Settlement Thesis</title>
+  <meta name="description" content="An evidence-first investment thesis for NEAR, rebuilt live from NearBlocks and DefiLlama data on every visit." />
+  <style>
+    :root { --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781; --line:#e1e0d9; --accent:#2a78d6; --good:#006300; --bad:#b4302f; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --page:#0d0d0d; --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#898781; --line:#2c2c2a; --accent:#3987e5; --good:#0ca30c; --bad:#e66767; } }
+    :root[data-theme="dark"] { --page:#0d0d0d; --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#898781; --line:#2c2c2a; --accent:#3987e5; --good:#0ca30c; --bad:#e66767; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main { max-width: 960px; margin: 0 auto; padding: 28px 16px 64px; }
+    h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; }
+    h2 { font-size: 19px; margin: 36px 0 8px; }
+    p { margin: 0 0 12px; color: var(--ink2); }
+    a { color: var(--accent); }
+    .meta { font-size: 13px; color: var(--muted); }
+    .claim { font-size: 17px; color: var(--ink); border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; margin: 16px 0; }
+    .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 20px 0; }
+    .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+    .tile b { display: block; font-size: 24px; color: var(--ink); font-variant-numeric: tabular-nums; }
+    .tile span { font-size: 13px; color: var(--ink2); }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+    .card h3 { margin: 0 0 8px; font-size: 15px; }
+    .card ul { margin: 0; padding-left: 18px; color: var(--ink2); }
+    .card li { margin-bottom: 6px; }
+    figure { margin: 24px 0; }
+    figure svg { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 10px; }
+    figcaption { margin-top: 8px; color: var(--ink); }
+    details { margin-top: 6px; font-size: 13px; color: var(--ink2); }
+    details code { font-size: 12px; word-break: break-all; }
+    .model { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+    label { font-size: 13px; color: var(--ink2); display: block; }
+    input { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid var(--line); border-radius: 8px; background: var(--page); color: var(--ink); font: inherit; }
+    .out { font-size: 18px; color: var(--ink); margin-top: 12px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
+    th, td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    th:first-child, td:first-child { text-align: left; }
+    th { color: var(--ink2); font-weight: 600; background: var(--surface); }
+    .status { padding: 10px 14px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); font-size: 13px; }
+    footer { margin-top: 40px; font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>NEAR: from transactions to settlement</h1>
+  <p class="meta" id="freshness">Loading live data from NearBlocks and DefiLlama…</p>
+  <p class="claim" id="claim">NEAR's long-term value now rests on one flow: what NEAR Intents earns, and how much of that buys NEAR back, against how fast new NEAR is issued. Transaction counts no longer describe the network, and the price has not tracked Intents volume yet.</p>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="cols">
+    <div class="card"><h3>Evidence for</h3><ul id="for"></ul></div>
+    <div class="card"><h3>Evidence against</h3><ul id="against"></ul></div>
+  </div>
+
+  <h2>The charts</h2>
+  <p>Every chart is drawn in your browser from the raw API responses, using the same code as <code>node rebuild.mjs</code>. Hover a point to read its value.</p>
+  <div id="charts"></div>
+
+  <h2>Break-even model</h2>
+  <p>At what monthly Intents volume would buybacks absorb all net new NEAR? Starting values are the last three full months; change them to test your own case.</p>
+  <div class="card">
+    <div class="model">
+      <label>Monthly Intents volume (USD)<input id="m-vol" type="number" min="0" step="1000000" /></label>
+      <label>Captured by NEAR (% of volume)<input id="m-rate" type="number" min="0" step="0.001" /></label>
+      <label>NEAR price (USD)<input id="m-price" type="number" min="0" step="0.01" /></label>
+      <label>Net new NEAR per month<input id="m-supply" type="number" min="0" step="10000" /></label>
+    </div>
+    <p class="out" id="m-out"></p>
+  </div>
+
+  <h2>What would change my mind</h2>
+  <div class="card"><ul id="falsifiers"></ul></div>
+
+  <h2>Data table</h2>
+  <div class="table-wrap"><table id="table"></table></div>
+
+  <footer>
+    <p>Sources: <span id="sources"></span>. No API keys. Rebuild everything locally with <code>node rebuild.mjs</code>.</p>
+    <p>Code and THESIS.md: <a href="https://github.com/0xkenichi/near-settlement-thesis">github.com/0xkenichi/near-settlement-thesis</a>. Built at NEAR HACKATHON (track: Investment Thesis). Not investment advice.</p>
+  </footer>
+</main>
+<script type="module" src="./app.mjs?v=2"></script>
+</body>
+</html>
