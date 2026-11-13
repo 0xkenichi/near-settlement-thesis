@@ -6,10 +6,9 @@ const W = 720, H = 360, PAD = { l: 64, r: 132, t: 64, b: 44 };
 const SLOTS = 3; // categorical slots: 1 blue, 2 orange, 3 aqua (validated for colour-blind separation)
 
 const STYLE = `<style>
-svg{--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;--grid:#e1e0d9;--axis:#c3c2b7;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a}
-@media (prefers-color-scheme:dark){svg{--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#898781;--grid:#2c2c2a;--axis:#383835;--s1:#3987e5;--s2:#d95926;--s3:#199e70}}
-text{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;fill:var(--ink2);font-size:12px}
-.title{fill:var(--ink);font-size:15px;font-weight:600}.sub{font-size:12px}.tick{fill:var(--muted);font-size:11px}
+svg{--surface:#fbf9f4;--ink:#141414;--ink2:#5d5a53;--muted:#8a867d;--grid:#e4dfd3;--axis:#c9c3b5;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a}
+text{font-family:"Inter Tight","Helvetica Neue",Arial,sans-serif;fill:var(--ink2);font-size:12px}
+.title{fill:var(--ink);font-family:Newsreader,Georgia,serif;font-size:18px;font-weight:500}.sub{font-size:12px}.tick{fill:var(--muted);font-size:11px;font-family:"DM Mono",ui-monospace,Menlo,monospace}
 .grid{stroke:var(--grid);stroke-width:1}.axis{stroke:var(--axis);stroke-width:1}.line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 circle.hit{fill:transparent;stroke:none}circle.hit:hover{fill:currentColor;fill-opacity:.35}.label{font-size:12px;fill:var(--ink)}
 ${Array.from({ length: SLOTS }, (_, i) => `.s${i + 1}{stroke:var(--s${i + 1});color:var(--s${i + 1})}.f${i + 1}{fill:var(--s${i + 1})}`).join("")}
@@ -36,7 +35,7 @@ const monthLabel = (m) => {
 
 function frame(title, sub, body) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}">${STYLE}
-<rect width="${W}" height="${H}" rx="8" fill="var(--surface)"/>
+<rect width="${W}" height="${H}" fill="var(--surface)"/>
 <text class="title" x="${PAD.l - 48}" y="26">${esc(title)}</text>
 <text class="sub" x="${PAD.l - 48}" y="45">${esc(sub)}</text>
 ${body}</svg>`;

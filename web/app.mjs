@@ -31,12 +31,15 @@ function render({ m, live }) {
     ? `Live: fetched just now. Chain data through ${m.dataThrough.chain}, Intents data through ${m.dataThrough.intentsVolume}. Monthly figures use full months ${m.baseMonth} to ${m.lastFullMonth}.`
     : `Live sources unreachable, so this shows the snapshot from the last rebuild (data through ${m.dataThrough.chain}).`;
 
+  const today = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  $("dateline").textContent = `${today} · data through ${m.dataThrough.chain}`;
+
   $("tiles").innerHTML = [
     [fmtUsd(h.intentsVolume.last), `Intents volume in ${m.lastFullMonth} (${h.intentsVolume.multiple}x ${m.baseMonth})`],
     [`${h.txnsPerDay.changePct}%`, `Transactions per day, ${m.baseMonth} to ${m.lastFullMonth}`],
     [`${gasX.toFixed(1)}x`, `NEAR's Intents revenue vs all gas fees, ${h.gasFeesVsIntentsFees.month}`],
     [`${bb.coveragePct}%`, `Share of net new NEAR bought back since ${bb.since}`],
-  ].map(([b, s]) => `<div class="tile"><b>${b}</b><span>${s}</span></div>`).join("");
+  ].map(([b, s], i) => `<li><span class="n">0${i + 1}</span><div><b>${b}</b><span class="t">${s}</span></div></li>`).join("");
 
   $("for").innerHTML = [
     `Monthly Intents volume went from ${fmtUsd(h.intentsVolume.base)} in ${m.baseMonth} to ${fmtUsd(h.intentsVolume.last)} in ${m.lastFullMonth} (${h.intentsVolume.multiple}x).`,
@@ -53,7 +56,7 @@ function render({ m, live }) {
     `NEAR keeps ${md.capturedShareOfFeesPct}% of Intents fees; solvers and front-ends keep the rest, and the split is a policy choice that can change.`,
   ].map(li).join("");
 
-  $("charts").innerHTML = CHARTS.map((ch) => `<figure>${ch.svg(m)}<figcaption>${ch.sentence(m)}</figcaption>
+  $("charts-list").innerHTML = CHARTS.map((ch, i) => `<figure><span class="kicker red">Chart 0${i + 1}</span><p class="cap">${ch.sentence(m)}</p>${ch.svg(m)}
     <details><summary>The query behind it</summary><p>${ch.method}</p>${ch.sources.map((k) => `<p><code>${SOURCES[k].url}</code><br>${SOURCES[k].what}</p>`).join("")}</details></figure>`).join("");
 
   $("m-vol").value = md.avgMonthlyVolume;

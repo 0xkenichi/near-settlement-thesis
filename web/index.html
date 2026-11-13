@@ -5,67 +5,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NEAR Settlement Thesis</title>
   <meta name="description" content="An evidence-first investment thesis for NEAR, rebuilt live from NearBlocks and DefiLlama data on every visit." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter+Tight:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" />
   <style>
-    :root { --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781; --line:#e1e0d9; --accent:#2a78d6; --good:#006300; --bad:#b4302f; }
-    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --page:#0d0d0d; --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#898781; --line:#2c2c2a; --accent:#3987e5; --good:#0ca30c; --bad:#e66767; } }
-    :root[data-theme="dark"] { --page:#0d0d0d; --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#898781; --line:#2c2c2a; --accent:#3987e5; --good:#0ca30c; --bad:#e66767; }
+    :root { --paper:#f4f1ea; --card:#fbf9f4; --ink:#141414; --ink2:#5d5a53; --hair:#d9d4c7; --red:#c3201a;
+            --serif:"Newsreader", Georgia, serif; --sans:"Inter Tight", "Helvetica Neue", Arial, sans-serif; --mono:"DM Mono", ui-monospace, Menlo, monospace; }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
-    main { max-width: 960px; margin: 0 auto; padding: 28px 16px 64px; }
-    h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; }
-    h2 { font-size: 19px; margin: 36px 0 8px; }
-    p { margin: 0 0 12px; color: var(--ink2); }
-    a { color: var(--accent); }
-    .meta { font-size: 13px; color: var(--muted); }
-    .claim { font-size: 17px; color: var(--ink); border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; margin: 16px 0; }
-    .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 20px 0; }
-    .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
-    .tile b { display: block; font-size: 24px; color: var(--ink); font-variant-numeric: tabular-nums; }
-    .tile span { font-size: 13px; color: var(--ink2); }
-    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
-    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
-    .card h3 { margin: 0 0 8px; font-size: 15px; }
-    .card ul { margin: 0; padding-left: 18px; color: var(--ink2); }
-    .card li { margin-bottom: 6px; }
-    figure { margin: 24px 0; }
-    figure svg { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 10px; }
-    figcaption { margin-top: 8px; color: var(--ink); }
-    details { margin-top: 6px; font-size: 13px; color: var(--ink2); }
-    details code { font-size: 12px; word-break: break-all; }
-    .model { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
-    label { font-size: 13px; color: var(--ink2); display: block; }
-    input { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid var(--line); border-radius: 8px; background: var(--page); color: var(--ink); font: inherit; }
-    .out { font-size: 18px; color: var(--ink); margin-top: 12px; }
-    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
-    table { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
-    th, td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 var(--sans); }
+    main { max-width: 1120px; margin: 0 auto; padding: 0 16px 72px; }
+    a { color: var(--ink); text-underline-offset: 3px; }
+    .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink2); }
+    .dateline { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 0 10px; }
+    .dateline .live::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--red); margin-right: 8px; vertical-align: 1px; }
+    .masthead { text-align: center; padding: 6px 0 18px; border-bottom: 2px solid var(--ink); }
+    .masthead h1 { margin: 0; font: 500 clamp(36px, 6.4vw, 64px)/1 var(--serif); letter-spacing: -.02em; }
+    nav { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--hair); font-size: 14px; font-weight: 500; }
+    nav a { text-decoration: none; }
+    nav a:hover { color: var(--red); }
+
+    .front { display: grid; grid-template-columns: 1fr; gap: 32px; padding: 28px 0; border-bottom: 1px solid var(--hair); }
+    @media (min-width: 900px) { .front { grid-template-columns: 1.15fr 1fr; } }
+    .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink2); display: flex; align-items: center; gap: 8px; }
+    .kicker.red { color: var(--red); }
+    .kicker.dot::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+    .headline { margin: 12px 0 14px; font: 500 clamp(32px, 4.6vw, 52px)/1.08 var(--serif); letter-spacing: -.015em; }
+    .dek { margin: 0 0 14px; font-size: 18px; color: var(--ink2); max-width: 36em; }
+    .meta { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink2); }
+    ol.top { list-style: none; margin: 10px 0 0; padding: 0; }
+    ol.top li { display: grid; grid-template-columns: 34px 1fr; gap: 8px; padding: 14px 0; border-top: 1px solid var(--hair); }
+    ol.top li:first-child { border-top: 2px solid var(--ink); }
+    ol.top .n { font-family: var(--mono); font-size: 12px; color: var(--ink2); padding-top: 6px; }
+    ol.top li:first-child .n { color: var(--red); }
+    ol.top b { display: block; font: 500 30px/1.1 var(--serif); }
+    ol.top span.t { font-size: 15px; color: var(--ink2); }
+
+    h2.section { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 40px 0 0; padding-top: 10px; border-top: 2px solid var(--ink); font: 500 30px/1.15 var(--serif); }
+    h2.section .mono { font-size: 12px; }
+    .cols { display: grid; grid-template-columns: 1fr; gap: 28px; margin-top: 16px; }
+    @media (min-width: 760px) { .cols { grid-template-columns: 1fr 1fr; } .cols > div + div { border-left: 1px solid var(--hair); padding-left: 28px; } }
+    .cols ul { margin: 10px 0 0; padding: 0; list-style: none; }
+    .cols li { padding: 12px 0; border-bottom: 1px solid var(--hair); font: 400 18px/1.45 var(--serif); }
+
+    figure { margin: 28px 0 0; padding-top: 14px; border-top: 1px solid var(--hair); }
+    figure .cap { margin: 8px 0 12px; font: 500 22px/1.3 var(--serif); }
+    figure svg { width: 100%; height: auto; display: block; }
+    details { margin-top: 10px; font-size: 14px; color: var(--ink2); }
+    summary { cursor: pointer; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+    details code { font-family: var(--mono); font-size: 12px; word-break: break-all; }
+
+    .box { background: var(--card); border: 1px solid var(--hair); padding: 20px; margin-top: 16px; }
+    .model { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+    label { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink2); display: block; }
+    input { width: 100%; padding: 9px 10px; margin-top: 6px; border: 1px solid var(--hair); background: var(--paper); color: var(--ink); font: 16px var(--sans); }
+    input:focus { outline: 2px solid var(--red); outline-offset: 0; }
+    .out { font: 500 22px/1.35 var(--serif); margin: 16px 0 0; }
+    .lead-p { margin: 12px 0 0; color: var(--ink2); max-width: 46em; }
+    ul.change { margin: 10px 0 0; padding: 0; list-style: none; counter-reset: c; }
+    ul.change li { counter-increment: c; display: grid; grid-template-columns: 34px 1fr; padding: 12px 0; border-bottom: 1px solid var(--hair); font: 400 18px/1.45 var(--serif); }
+    ul.change li::before { content: counter(c, decimal-leading-zero); font-family: var(--mono); font-size: 12px; color: var(--red); padding-top: 5px; }
+    ul.change i { display: block; font: 400 14px/1.5 var(--sans); color: var(--ink2); font-style: normal; margin-top: 4px; }
+    .table-wrap { overflow-x: auto; margin-top: 14px; }
+    table { border-collapse: collapse; width: 100%; font: 13px/1.4 var(--mono); }
+    th, td { padding: 8px 10px; text-align: right; border-bottom: 1px solid var(--hair); white-space: nowrap; }
     th:first-child, td:first-child { text-align: left; }
-    th { color: var(--ink2); font-weight: 600; background: var(--surface); }
-    .status { padding: 10px 14px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); font-size: 13px; }
-    footer { margin-top: 40px; font-size: 13px; color: var(--muted); }
+    th { font-weight: 500; color: var(--ink2); text-transform: uppercase; letter-spacing: .06em; font-size: 11px; border-bottom: 2px solid var(--ink); }
+    footer { margin-top: 48px; padding-top: 14px; border-top: 2px solid var(--ink); font-size: 14px; color: var(--ink2); }
   </style>
 </head>
 <body>
 <main>
-  <h1>NEAR: from transactions to settlement</h1>
-  <p class="meta" id="freshness">Loading live data from NearBlocks and DefiLlama…</p>
-  <p class="claim" id="claim">NEAR's long-term value now rests on one flow: what NEAR Intents earns, and how much of that buys NEAR back, against how fast new NEAR is issued. Transaction counts no longer describe the network, and the price has not tracked Intents volume yet.</p>
+  <div class="dateline mono"><span id="dateline">Loading live data…</span><span class="live">Live edition · rebuilt on every visit</span></div>
+  <header class="masthead"><h1>The NEAR Settlement Thesis</h1></header>
+  <nav><a href="#evidence">Evidence</a><a href="#charts">Charts</a><a href="#model">Model</a><a href="#change">What would change my mind</a><a href="#data">Data</a><a href="https://github.com/0xkenichi/near-settlement-thesis">Code</a></nav>
 
-  <div class="tiles" id="tiles"></div>
+  <section class="front">
+    <div>
+      <span class="kicker red dot">The claim</span>
+      <h2 class="headline">Usage moved from transactions to NEAR Intents. The price hasn't followed yet.</h2>
+      <p class="dek" id="claim">NEAR's long-term value now rests on one flow: what NEAR Intents earns, and how much of that buys NEAR back, against how fast new NEAR is issued.</p>
+      <p class="meta" id="freshness">Fetching NearBlocks and DefiLlama…</p>
+    </div>
+    <div>
+      <div class="kicker" style="justify-content:space-between"><span>Key numbers</span><span>01 / 04</span></div>
+      <ol class="top" id="tiles"></ol>
+    </div>
+  </section>
 
+  <h2 class="section" id="evidence">The evidence <span class="mono">For and against</span></h2>
   <div class="cols">
-    <div class="card"><h3>Evidence for</h3><ul id="for"></ul></div>
-    <div class="card"><h3>Evidence against</h3><ul id="against"></ul></div>
+    <div><span class="kicker red">For</span><ul id="for"></ul></div>
+    <div><span class="kicker red">Against</span><ul id="against"></ul></div>
   </div>
 
-  <h2>The charts</h2>
-  <p>Every chart is drawn in your browser from the raw API responses, using the same code as <code>node rebuild.mjs</code>. Hover a point to read its value.</p>
-  <div id="charts"></div>
+  <h2 class="section" id="charts">The charts <span class="mono">Drawn in your browser from raw data</span></h2>
+  <p class="lead-p">Every chart runs the same code as <code>node rebuild.mjs</code> on the raw API responses. Hover a point to read its value.</p>
+  <div id="charts-list"></div>
 
-  <h2>Break-even model</h2>
-  <p>At what monthly Intents volume would buybacks absorb all net new NEAR? Starting values are the last three full months; change them to test your own case.</p>
-  <div class="card">
+  <h2 class="section" id="model">Break-even model <span class="mono">Edit the inputs</span></h2>
+  <p class="lead-p">At what monthly Intents volume would buybacks absorb all net new NEAR? The starting values are the last three full months.</p>
+  <div class="box">
     <div class="model">
       <label>Monthly Intents volume (USD)<input id="m-vol" type="number" min="0" step="1000000" /></label>
       <label>Captured by NEAR (% of volume)<input id="m-rate" type="number" min="0" step="0.001" /></label>
@@ -75,17 +114,17 @@
     <p class="out" id="m-out"></p>
   </div>
 
-  <h2>What would change my mind</h2>
-  <div class="card"><ul id="falsifiers"></ul></div>
+  <h2 class="section" id="change">What would change my mind <span class="mono">Checked against today's data</span></h2>
+  <ul class="change" id="falsifiers"></ul>
 
-  <h2>Data table</h2>
+  <h2 class="section" id="data">Data <span class="mono">Monthly, full months</span></h2>
   <div class="table-wrap"><table id="table"></table></div>
 
   <footer>
-    <p>Sources: <span id="sources"></span>. No API keys. Rebuild everything locally with <code>node rebuild.mjs</code>.</p>
-    <p>Code and THESIS.md: <a href="https://github.com/0xkenichi/near-settlement-thesis">github.com/0xkenichi/near-settlement-thesis</a>. Built at NEAR HACKATHON (track: Investment Thesis). Not investment advice.</p>
+    <p>Sources: <span id="sources"></span>. No API keys. Rebuild everything with <code>node rebuild.mjs</code>. Full thesis and code: <a href="https://github.com/0xkenichi/near-settlement-thesis">github.com/0xkenichi/near-settlement-thesis</a>.</p>
+    <p>Built at NEAR HACKATHON (Investment Thesis track). Not investment advice.</p>
   </footer>
 </main>
-<script type="module" src="./app.mjs?v=2"></script>
+<script type="module" src="./app.mjs?v=3"></script>
 </body>
 </html>
