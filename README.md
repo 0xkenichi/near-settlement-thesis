@@ -81,7 +81,7 @@ The last step creates the account through the public testnet helper. Its keys go
 
 ## Disclosures
 
-- **My other NEAR HACKATHON project:** [Open Door](https://github.com/0xkenichi/open-door) (Social Money track). In Open Door, members earn a Sputnik DAO vote by attending community calls. The two projects are independent and share no code.
+- **My other NEAR HACKATHON project:** [Open Door](https://github.com/0xkenichi/open-door) (Social Money track). In Open Door, members earn a Sputnik DAO vote by attending community calls. The two projects are independent: different tracks, different repositories, and no shared code. Both serve their web pages through web4.
 - **AI:** the analysis code, dashboard and documents were written with Claude Code (Anthropic) as a pair programmer, directed and reviewed by the author. Every number is computed by the code in this repository from the listed sources; none was typed in by hand.
 - **Baseline:** this is a new repository, started on 13 Nov 2026, with no code from earlier projects.
 - **Not investment advice.**
