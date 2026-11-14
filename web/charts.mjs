@@ -219,4 +219,21 @@ export const CHARTS = [
       });
     },
   },
+  {
+    id: "6-take-rate",
+    sources: ["intentsVolume", "intentsFees", "intentsRevenue"],
+    method: "Each full month since revenue tracking began: NEAR-captured revenue ÷ Intents volume, and gross fees ÷ Intents volume, both in percent.",
+    sentence: (m) => `NEAR now keeps ${m.take.last.shareOfFeesPct}% of every Intents fee dollar (${m.take.last.window}), up from ${m.take.first.shareOfFeesPct}% (${m.take.first.window}), even as fees per dollar swapped fell from ${m.take.first.grossPct}% to ${m.take.last.grossPct}%.`,
+    svg: (m) => lineChart({
+      title: "NEAR keeps more of each fee",
+      sub: "Monthly, % of Intents volume. Gross = all fees; captured = what NEAR keeps for buybacks.",
+      labels: m.series.take.map((p) => p.x),
+      series: [
+        { name: "Gross fees", slot: 2, values: m.series.take.map((p) => p.gross) },
+        { name: "NEAR captured", slot: 1, values: m.series.take.map((p) => p.captured) },
+      ],
+      yFmt: (v) => `${v.toFixed(2)}%`,
+      xEvery: 2,
+    }),
+  },
 ];

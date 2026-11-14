@@ -7,9 +7,9 @@
     "intentsBuyback": "https://api.llama.fi/summary/fees/near-intents?dataType=dailyHoldersRevenue&excludeTotalDataChartBreakdown=true"
   },
   "dataThrough": {
-    "chain": "2026-11-12",
-    "intentsVolume": "2026-11-12",
-    "intentsBuyback": "2026-11-12"
+    "chain": "2026-11-13",
+    "intentsVolume": "2026-11-13",
+    "intentsBuyback": "2026-11-13"
   },
   "baseMonth": "2025-01",
   "revenueTrackedFrom": "2025-11-07",
@@ -70,11 +70,92 @@
     "grossFeeRatePct": 0.152,
     "capturedRatePct": 0.041,
     "capturedShareOfFeesPct": 27.1,
-    "newSupplyPerMonth": 2688101,
-    "priceNow": 3.59,
-    "breakevenMonthlyVolume": 23456558531,
-    "breakevenMultiple": 6.1,
-    "runRateCoveragePct": 16.4
+    "newSupplyPerMonth": 2685930,
+    "priceNow": 3.42,
+    "breakevenMonthlyVolume": 22350827149,
+    "breakevenMultiple": 5.8,
+    "runRateCoveragePct": 17.2
+  },
+  "take": {
+    "series": [
+      {
+        "x": "2025-12",
+        "captured": 0.008788452045760835,
+        "gross": 0.20482577932611934
+      },
+      {
+        "x": "2026-01",
+        "captured": 0.013185690030442732,
+        "gross": 0.1618743857281735
+      },
+      {
+        "x": "2026-02",
+        "captured": 0.02788285110470598,
+        "gross": 0.17384554659251994
+      },
+      {
+        "x": "2026-03",
+        "captured": 0.027093395476701126,
+        "gross": 0.1726268968782982
+      },
+      {
+        "x": "2026-04",
+        "captured": 0.01364993518877604,
+        "gross": 0.16920007758293734
+      },
+      {
+        "x": "2026-05",
+        "captured": 0.031047638724614086,
+        "gross": 0.15043979828031226
+      },
+      {
+        "x": "2026-06",
+        "captured": 0.026308111477716167,
+        "gross": 0.13215367366511144
+      },
+      {
+        "x": "2026-07",
+        "captured": 0.0228903084972203,
+        "gross": 0.14834707554126572
+      },
+      {
+        "x": "2026-08",
+        "captured": 0.026041655668007806,
+        "gross": 0.13815350696808937
+      },
+      {
+        "x": "2026-09",
+        "captured": 0.03829849791852216,
+        "gross": 0.1525223413281267
+      },
+      {
+        "x": "2026-10",
+        "captured": 0.05493522045360646,
+        "gross": 0.16027723110871855
+      }
+    ],
+    "first": {
+      "window": "2025-12..2026-02",
+      "capturedPct": 0.0169,
+      "grossPct": 0.178,
+      "shareOfFeesPct": 9.5
+    },
+    "last": {
+      "window": "2026-08..2026-10",
+      "capturedPct": 0.0411,
+      "grossPct": 0.152,
+      "shareOfFeesPct": 27
+    }
+  },
+  "float": {
+    "days": 264,
+    "grossPct": 2.44,
+    "afterBuybacksPct": 2.09
+  },
+  "tests": {
+    "mechanism": true,
+    "coverage": false,
+    "priceLink": false
   },
   "leadLag": {
     "weeks": 95,
@@ -149,10 +230,10 @@
   },
   "buyback": {
     "since": "2026-02-23",
-    "through": "2026-11-12",
-    "usd": 8149355,
-    "nearBought": 3323777,
-    "netNewSupplyNear": 23054181,
+    "through": "2026-11-13",
+    "usd": 8203172,
+    "nearBought": 3339432,
+    "netNewSupplyNear": 23130202,
     "coveragePct": 14.4
   },
   "supplyGrowthPct365d": 2.48,
@@ -2051,13 +2132,75 @@
       },
       {
         "x": "2026-11-11",
-        "bought": 3297098.970182051,
+        "bought": 3297821.8780161208,
         "newSupply": 22978490.1830678
       },
       {
         "x": "2026-11-12",
-        "bought": 3323777.221038426,
+        "bought": 3325531.2572693513,
         "newSupply": 23054181.402284145
+      },
+      {
+        "x": "2026-11-13",
+        "bought": 3339432.12045683,
+        "newSupply": 23130202.45300007
+      }
+    ],
+    "take": [
+      {
+        "x": "2025-12",
+        "captured": 0.008788452045760835,
+        "gross": 0.20482577932611934
+      },
+      {
+        "x": "2026-01",
+        "captured": 0.013185690030442732,
+        "gross": 0.1618743857281735
+      },
+      {
+        "x": "2026-02",
+        "captured": 0.02788285110470598,
+        "gross": 0.17384554659251994
+      },
+      {
+        "x": "2026-03",
+        "captured": 0.027093395476701126,
+        "gross": 0.1726268968782982
+      },
+      {
+        "x": "2026-04",
+        "captured": 0.01364993518877604,
+        "gross": 0.16920007758293734
+      },
+      {
+        "x": "2026-05",
+        "captured": 0.031047638724614086,
+        "gross": 0.15043979828031226
+      },
+      {
+        "x": "2026-06",
+        "captured": 0.026308111477716167,
+        "gross": 0.13215367366511144
+      },
+      {
+        "x": "2026-07",
+        "captured": 0.0228903084972203,
+        "gross": 0.14834707554126572
+      },
+      {
+        "x": "2026-08",
+        "captured": 0.026041655668007806,
+        "gross": 0.13815350696808937
+      },
+      {
+        "x": "2026-09",
+        "captured": 0.03829849791852216,
+        "gross": 0.1525223413281267
+      },
+      {
+        "x": "2026-10",
+        "captured": 0.05493522045360646,
+        "gross": 0.16027723110871855
       }
     ]
   },

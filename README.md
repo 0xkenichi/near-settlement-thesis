@@ -25,10 +25,12 @@ The dashboard runs the same code live, so it can't drift from the document.
 | NEAR's captured Intents revenue vs all gas fees, Oct 2026 | $2.19M vs $196K (11.2x) |
 | Correlation of NEAR price with Intents volume (22 months: levels / changes) | −0.51 / −0.08 |
 | Does weekly Intents volume lead the price (lags −6 to +6 weeks)? | No lag clears the ±0.20 noise band |
-| Buybacks since 2026-02-23 vs net new NEAR supply | 3.32M of 23.05M NEAR (14.4%) |
-| Intents volume needed for buybacks to cover all new supply | ≈ $23.5B a month (6.1x today) |
+| Buybacks since 2026-02-23 vs net new NEAR supply | 3.34M of 23.13M NEAR (14.4%) |
+| NEAR's share of every Intents fee dollar, Dec–Feb → Aug–Oct | 9.5% → 27% (gross fees per dollar fell from 0.178% to 0.152%) |
+| Float growth after burns and buybacks (buyback era, annualised) | 2.09% a year (2.44% before buybacks) |
+| Intents volume needed for buybacks to cover all new supply | ≈ $22.4B a month (5.8x today, at $3.42) |
 
-The verdict, in one line: NEAR has become a settlement business, and the token case now depends on buyback coverage of new supply. Usage counts no longer matter, and the price hasn't followed Intents volume yet.
+**The verdict:** the mechanism works, but the payoff hasn't arrived. The dashboard tests three things with fixed thresholds. "Mechanism" passes. "Coverage of new supply" and "price link" do not yet pass.
 
 ## Try it: do X, see Y
 
@@ -48,6 +50,7 @@ The verdict, in one line: NEAR has become a settlement business, and the token c
 ![Neither metric leads the price week to week](charts/3-no-lead.svg)
 ![Intents now earns NEAR more than its own gas fees](charts/4-revenue-vs-gas.svg)
 ![Buybacks absorb a fraction of new supply](charts/5-buyback-vs-supply.svg)
+![NEAR keeps more of each fee](charts/6-take-rate.svg)
 
 ## Data sources (all public, no API keys)
 

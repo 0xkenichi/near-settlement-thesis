@@ -190,11 +190,41 @@ export function compute(raw) {
   model.breakevenMultiple = round(model.breakevenMonthlyVolume / model.avgMonthlyVolume, 1);
   model.runRateCoveragePct = round((100 * (model.avgMonthlyVolume * takeRate) / priceNow) / newSupplyPerMonth, 1);
 
+  // NEAR's take over time: captured revenue and gross fees as a share of Intents volume, from the month tracking began.
+  const revStart = [...d.revenue.entries()].sort().find(([, v]) => v > 1000)?.[0];
+  const takeMonths = monthly.filter((m) => revStart && m.month >= revStart.slice(0, 7) && m.month > revStart.slice(0, 7));
+  const pctOf = (rows, key) => (100 * rows.reduce((a, m) => a + m[key], 0)) / rows.reduce((a, m) => a + m.intentsVolume, 0);
+  const firstT = takeMonths.slice(0, 3), lastT = takeMonths.slice(-3);
+  const take = {
+    series: takeMonths.map((m) => ({ x: m.month, captured: (100 * m.intentsRevenue) / m.intentsVolume, gross: (100 * m.intentsFees) / m.intentsVolume })),
+    first: { window: `${firstT[0]?.month}..${firstT.at(-1)?.month}`, capturedPct: round(pctOf(firstT, "intentsRevenue"), 4), grossPct: round(pctOf(firstT, "intentsFees"), 3) },
+    last: { window: `${lastT[0]?.month}..${lastT.at(-1)?.month}`, capturedPct: round(pctOf(lastT, "intentsRevenue"), 4), grossPct: round(pctOf(lastT, "intentsFees"), 3) },
+  };
+  take.first.shareOfFeesPct = round((100 * take.first.capturedPct) / take.first.grossPct, 1);
+  take.last.shareOfFeesPct = round((100 * take.last.capturedPct) / take.last.grossPct, 1);
+
   // Correlation inside the buyback era only (few months, so read it as a description, not a test).
   const bbMonths = monthly.filter((m) => m.month >= BUYBACK_START.slice(0, 7) && m.month > "2026-02");
   const buybackEra = bbMonths.length >= 4
     ? { months: bbMonths.length, from: bbMonths[0].month, to: bbMonths.at(-1).month, levels: round(pearson(bbMonths.map((m) => Math.log(m.price)), bbMonths.map((m) => Math.log(m.intentsVolume)))) }
     : null;
+
+  // Float growth: net new supply (issuance minus burnt gas) minus NEAR bought back, annualised over the buyback era.
+  const bbSpanDays = bbDays.length;
+  const supplyNow = supplyAt(chainLast);
+  const float = {
+    days: bbSpanDays,
+    grossPct: round((100 * newSupply * 365) / bbSpanDays / supplyNow, 2),
+    afterBuybacksPct: round((100 * (newSupply - nearBought) * 365) / bbSpanDays / supplyNow, 2),
+  };
+
+  // Verdict: three tests with fixed thresholds, so it can flip on its own as data changes.
+  const lastMonths = monthly.slice(-3);
+  const tests = {
+    mechanism: lastMonths.every((x) => x.intentsRevenue > x.gasFeesUsd) && lastMonths.every((x) => x.buybackUsd > 0),
+    coverage: (100 * nearBought) / newSupply >= 100,
+    priceLink: Math.abs(corr.intentsVolume.changes) > 1.96 / Math.sqrt(monthly.length - 1),
+  };
 
   return {
     generatedFrom: Object.fromEntries(Object.entries(SOURCES).map(([k, s]) => [k, s.url])),
@@ -213,6 +243,9 @@ export function compute(raw) {
     },
     correlation: { months: monthly.length, ...corr, buybackEra },
     model,
+    take,
+    float,
+    tests,
     leadLag: { weeks: wPrice.length, significanceAbsR: significance, lags },
     buyback: { since: BUYBACK_START, through: bbLast, usd: Math.round(usd), nearBought: Math.round(nearBought), netNewSupplyNear: Math.round(newSupply), coveragePct: round((100 * nearBought) / newSupply, 1) },
     supplyGrowthPct365d: supplyGrowth,
@@ -221,6 +254,7 @@ export function compute(raw) {
       monthlyVolume: monthly.map((m) => ({ x: m.month, y: m.intentsVolume })),
       monthlyFees: monthly.map((m) => ({ x: m.month, gas: m.gasFeesUsd, intents: m.intentsFees, revenue: m.intentsRevenue })),
       buyback: cumulative,
+      take: take.series,
     },
     monthly,
   };

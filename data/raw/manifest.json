@@ -1,27 +1,27 @@
 {
   "chain": {
     "url": "https://api.nearblocks.io/v1/charts",
-    "fetchedAt": "2026-11-13T08:57:47.415Z",
-    "bytes": 1544022
+    "fetchedAt": "2026-11-14T13:52:46.757Z",
+    "bytes": 1544699
   },
   "intentsVolume": {
     "url": "https://api.llama.fi/summary/dexs/near-intents?excludeTotalDataChartBreakdown=true",
-    "fetchedAt": "2026-11-13T08:57:48.528Z",
-    "bytes": 17176
+    "fetchedAt": "2026-11-14T13:52:48.302Z",
+    "bytes": 17198
   },
   "intentsFees": {
     "url": "https://api.llama.fi/summary/fees/near-intents?dataType=dailyFees&excludeTotalDataChartBreakdown=true",
-    "fetchedAt": "2026-11-13T08:57:49.445Z",
-    "bytes": 14192
+    "fetchedAt": "2026-11-14T13:52:49.194Z",
+    "bytes": 14213
   },
   "intentsRevenue": {
     "url": "https://api.llama.fi/summary/fees/near-intents?dataType=dailyRevenue&excludeTotalDataChartBreakdown=true",
-    "fetchedAt": "2026-11-13T08:57:50.345Z",
-    "bytes": 12973
+    "fetchedAt": "2026-11-14T13:52:50.100Z",
+    "bytes": 12995
   },
   "intentsBuyback": {
     "url": "https://api.llama.fi/summary/fees/near-intents?dataType=dailyHoldersRevenue&excludeTotalDataChartBreakdown=true",
-    "fetchedAt": "2026-11-13T08:57:50.745Z",
-    "bytes": 12887
+    "fetchedAt": "2026-11-14T13:52:50.501Z",
+    "bytes": 12906
   }
 }
